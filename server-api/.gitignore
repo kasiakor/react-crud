@@ -9,5 +9,5 @@
 /build/
 
 # Ignore IDE specific files
-.node_modules/
+**/node_modules
 .vscode/

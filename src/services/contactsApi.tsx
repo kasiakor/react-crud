@@ -9,8 +9,11 @@ export const contactsApi = createApi({
     getContacts: builder.query<Contact[], void>({
       query: () => "/contacts",
     }),
+    getContact: builder.query<Contact, string>({
+      query: (id) => `/contacts/${id}`,
+    }),
   }),
 });
 
 // add hook to use the query
-export const { useGetContactsQuery } = contactsApi;
+export const { useGetContactsQuery, useGetContactQuery } = contactsApi;

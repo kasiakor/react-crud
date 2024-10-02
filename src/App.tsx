@@ -1,5 +1,8 @@
 import "./App.css";
-import { useGetContactsQuery } from "./services/contactsApi";
+import {
+  useGetContactQuery,
+  useGetContactsQuery,
+} from "./services/contactsApi";
 
 function App() {
   const { data, error, isLoading, isFetching, isSuccess } =
@@ -16,13 +19,16 @@ function App() {
             {data?.map((contact) => {
               return (
                 <div key={contact.id}>
-                  <div>{contact.name}</div>
+                  {/* <div>{contact.name}</div>
                   <div>{contact.name}</div>
                   <div>{contact.age}</div>
                   <div>{contact.company}</div>
                   <div>{contact.gender}</div>
-                  <div>{contact.email}</div>
+                  <div>{contact.email}</div> */}
                   <img alt="face" src={contact.photo} />
+                  <span>
+                    <ContactDetail id={contact.id} />
+                  </span>
                 </div>
               );
             })}
@@ -32,5 +38,11 @@ function App() {
     </div>
   );
 }
+
+export const ContactDetail = ({ id }: { id: string }) => {
+  const { data } = useGetContactQuery(id);
+
+  return <pre>{JSON.stringify(data, undefined, 2)}</pre>;
+};
 
 export default App;

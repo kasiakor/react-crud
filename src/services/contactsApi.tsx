@@ -3,10 +3,11 @@ import { Contact } from "../models/contact.model";
 
 // Define a service using a base URL and expected endpoints
 export const contactsApi = createApi({
+  reducerPath: "contactsApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3006/" }),
   endpoints: (builder) => ({
     getContacts: builder.query<Contact[], void>({
-      query: (id) => `contacts/${id}`,
+      query: () => "/contacts",
     }),
   }),
 });

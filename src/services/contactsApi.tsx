@@ -12,8 +12,34 @@ export const contactsApi = createApi({
     getContact: builder.query<Contact, string>({
       query: (id) => `/contacts/${id}`,
     }),
+    addContact: builder.mutation<void, Contact>({
+      query: (contact) => ({
+        url: "/contacts/",
+        method: "POST",
+        body: contact,
+      }),
+    }),
+    updateContact: builder.mutation<void, Contact>({
+      query: ({ id, ...rest }) => ({
+        url: `/contacts/${id}`,
+        method: "PUT",
+        body: rest,
+      }),
+    }),
+    deleteContact: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/contacts/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
 // add hook to use the query
-export const { useGetContactsQuery, useGetContactQuery } = contactsApi;
+export const {
+  useGetContactsQuery,
+  useGetContactQuery,
+  useAddContactMutation,
+  useUpdateContactMutation,
+  useDeleteContactMutation,
+} = contactsApi;

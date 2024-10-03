@@ -49,6 +49,7 @@ export const ContactDetail = ({ id }: { id: string }) => {
 
 export const AddContact = () => {
   const [addContact] = useAddContactMutation();
+  const { refetch } = useGetContactsQuery();
 
   const contact = {
     id: "5b2eee0a8fdd5b71c8148400",
@@ -62,6 +63,7 @@ export const AddContact = () => {
 
   const addHandler = async () => {
     await addContact(contact);
+    refetch();
   };
 
   return (

@@ -1,8 +1,10 @@
 import "./App.css";
 import {
   useAddContactMutation,
+  useDeleteContactMutation,
   useGetContactQuery,
   useGetContactsQuery,
+  useUpdateContactMutation,
 } from "./services/contactsApi";
 
 function App() {
@@ -49,7 +51,9 @@ export const ContactDetail = ({ id }: { id: string }) => {
 
 export const AddContact = () => {
   const [addContact] = useAddContactMutation();
-  const { refetch } = useGetContactsQuery();
+  const [updateContact] = useUpdateContactMutation();
+  const [deleteContact] = useDeleteContactMutation();
+  // const { refetch } = useGetContactsQuery();
 
   const contact = {
     id: "5b2eee0a8fdd5b71c8148400",
@@ -61,14 +65,33 @@ export const AddContact = () => {
     photo: "https://randomuser.me/api/portraits/men/32.jpg",
   };
 
-  const addHandler = async () => {
-    await addContact(contact);
-    refetch();
+  const updatedContact = {
+    id: "5b2eee0a8fdd5b71c8148400",
+    age: 22,
+    name: "Campos Yorki Updated",
+    gender: "female",
+    company: "AVENETRO",
+    email: "camposyork@avenetro.com",
+    photo: "https://randomuser.me/api/portraits/men/32.jpg",
   };
 
+  const addHandler = async () => {
+    await addContact(contact);
+    // refetch();
+  };
+  const updateHandler = async () => {
+    await updateContact(updatedContact);
+  };
+  const deleteHandler = async () => {
+    await deleteContact("5b2eee0a8fdd5b71c8148400");
+  };
+
+  console.log("contact", contact);
   return (
     <>
       <button onClick={addHandler}>Add Contact</button>
+      <button onClick={updateHandler}>Update Contact</button>
+      <button onClick={deleteHandler}>Delete Contact</button>
     </>
   );
 };
